@@ -9,14 +9,14 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item">
-            <NavLink class="nav-link" href="/terrario/detalhe/atual">
+            <NavLink class="nav-link" href="/terrario/detalhe/atual" Match="NavLinkMatch.All">
                 <span class="oi oi-image" aria-hidden="true"></span> Status Atual
             </NavLink>
         </div>
     </nav>
     <nav class="flex-column">
         <div class="nav-item">
-            <NavLink class="nav-link" href="/terrario/status">
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All" >
                 <span class="oi oi-image" aria-hidden="true"></span> Status do Terrário
             </NavLink>
         </div>
