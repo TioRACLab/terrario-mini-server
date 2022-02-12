@@ -1,4 +1,5 @@
-﻿@page "/terrario/detalhe/{timestamp:int}"
+﻿@page "/terrario/detalhe/atual"
+@page "/terrario/detalhe/{timestamp:int}"
 @using TioRACLab.Terrario.Shared
 @inject HttpClient Http
 
@@ -172,13 +173,16 @@ else
 
 @code {
     [Parameter]
-    public int Timestamp { get; set; }
+    public int? Timestamp { get; set; }
 
     private StatusTerrario statusTerrario;
 
     protected override async Task OnInitializedAsync()
     {
-        statusTerrario = await Http.GetFromJsonAsync<StatusTerrario>($"v1/Status/{Timestamp}");
+        if (Timestamp.HasValue)
+            statusTerrario = await Http.GetFromJsonAsync<StatusTerrario>($"v1/Status/{Timestamp.Value}");
+        else
+            statusTerrario = await Http.GetFromJsonAsync<StatusTerrario>($"v1/Status/Current");
     }
 
     private string ValidarStatus(Status statusAtual, Status valorDesejado)

@@ -4,12 +4,22 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+h1 {
+    border-bottom: solid;
+    float: left;
+    margin-bottom: 20px;
+}
+
 h1:focus {
     outline: none;
 }
 
 a, .btn-link {
     color: #0071c1;
+}
+
+tbody tr:hover {
+    background-color: #f8f8f8;
 }
 
 .btn-primary {

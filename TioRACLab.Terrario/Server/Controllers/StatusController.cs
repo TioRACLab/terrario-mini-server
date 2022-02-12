@@ -18,28 +18,28 @@ namespace TioRACLab.Terrario.Server.Controllers
             _contextoTerrario = contextoTerrario;
         }
 
+        [HttpGet("current")]
+        public async Task<ActionResult<StatusTerrario>> Get()
+        {
+            return await _contextoTerrario.StatusTerrario.OrderByDescending(status => status.Timestamp) .FirstOrDefaultAsync();
+        }
+
         [HttpGet("{timestamp}")]
         public async Task<ActionResult<StatusTerrario>> Get(int timestamp)
         {
-            _contextoTerrario.Database.EnsureCreated();
-
             return await _contextoTerrario.StatusTerrario.FirstOrDefaultAsync(s => s.Timestamp == timestamp);
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StatusTerrario>>> Get()
+        public async Task<ActionResult<IEnumerable<StatusTerrario>>> GetAll()
         {
-            _contextoTerrario.Database.EnsureCreated();
-
             return await _contextoTerrario.StatusTerrario.OrderByDescending(s => s.Timestamp).ToListAsync();
         }
 
         [HttpPost]
         public async Task<ActionResult> Post(StatusTerrario statusTerrario)
         {
-            _contextoTerrario.Database.EnsureCreated();
-
             if (_contextoTerrario.StatusTerrario.Any(status => status.Timestamp == statusTerrario.Timestamp))
                 return Conflict();
 

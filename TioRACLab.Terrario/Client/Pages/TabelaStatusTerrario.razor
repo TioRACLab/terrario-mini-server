@@ -48,6 +48,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        statusTerrario = await Http.GetFromJsonAsync<StatusTerrario[]>("v1/Status");
+        statusTerrario = await Http.GetFromJsonAsync<StatusTerrario[]>("v1/Status/");
     }
 }
