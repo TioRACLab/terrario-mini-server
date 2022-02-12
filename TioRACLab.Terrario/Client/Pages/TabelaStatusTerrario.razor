@@ -1,4 +1,5 @@
-﻿@page "/terrario/status"
+﻿@page "/"
+@page "/terrario/status"
 @using TioRACLab.Terrario.Shared
 @inject HttpClient Http
 @inject NavigationManager _navigationManager
@@ -25,7 +26,7 @@ else
         <tbody>
             @foreach (StatusTerrario status in statusTerrario)
             {
-                <tr @onclick="() => { IrParaDetalhe(status.Timestamp); }">
+                <tr class="terrario-data" @onclick="() => { IrParaDetalhe(status.Timestamp); }">
                     <td>@status.Timestamp</td>
                     <td>@status.Status</td>
                     <td>@status.Temperatura</td>
