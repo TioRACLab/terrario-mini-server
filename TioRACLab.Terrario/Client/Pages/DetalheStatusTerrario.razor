@@ -1,0 +1,210 @@
+﻿@page "/terrario/detalhe/{timestamp:int}"
+@using TioRACLab.Terrario.Shared
+@inject HttpClient Http
+
+@if (statusTerrario == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h1>Status de @statusTerrario.Timestamp</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Status Geral
+                </td>
+                <td>
+                    @statusTerrario.Status
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Iluminação
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.ILUMINACAO)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Espectro
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.ESPECTRO)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Nível Lago
+                </td>
+                <td>
+                    @ValidarNivelLago(statusTerrario.Status)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Reservatório
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.RESERVATORIO)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Bomba do Lago
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.BOMBA_LAGO)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Bomba do Reservatório
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.BOMBA_RESERVATORIO)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cascata
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.CASCATA)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Irrigação
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.IRRIGACAO)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Neblina
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.NEBLINA)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Trem (Frente)
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.TREM_FRENTE)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Trem (Reverso)
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.TREM_REVERSO)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Trem (Lento)
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.TREM_LENTO)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Trem (Médio)
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.TREM_MEDIO)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Trem (Rápido)
+                </td>
+                <td>
+                    @ValidarStatus(statusTerrario.Status, Status.TREM_RAPIDO)
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    Temperatura
+                </td>
+                <td>
+                    @statusTerrario.Temperatura
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Umidade
+                </td>
+                <td>
+                    @statusTerrario.Umidade
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sensor Nivel Lago
+                </td>
+                <td>
+                    @statusTerrario.NivelLago
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+
+
+@code {
+    [Parameter]
+    public int Timestamp { get; set; }
+
+    private StatusTerrario statusTerrario;
+
+    protected override async Task OnInitializedAsync()
+    {
+        statusTerrario = await Http.GetFromJsonAsync<StatusTerrario>($"v1/Status/{Timestamp}");
+    }
+
+    private string ValidarStatus(Status statusAtual, Status valorDesejado)
+    {
+        return (statusAtual & valorDesejado) == valorDesejado ? "Ligado" : "Desligado";
+    }
+
+    private string ValidarNivelLago(Status statusAtual)
+    {
+        var nivel1 = (statusAtual & Status.LAGO_NIVEL1) == Status.LAGO_NIVEL1;
+        var nivel2 = (statusAtual & Status.LAGO_NIVEL2) == Status.LAGO_NIVEL2;
+
+        var valorNivel = (nivel1 ? 2 : 0) + (nivel2 ? 1 : 0);
+
+        switch (valorNivel)
+        {
+            case 0:
+                return "Vazio";
+            case 1:
+                return "Baixo";
+            case 2:
+                return "Médio";
+            default:
+                return "Alto";
+        }
+    }
+}
+
+

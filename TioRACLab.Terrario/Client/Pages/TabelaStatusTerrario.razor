@@ -1,0 +1,52 @@
+﻿@page "/terrario/status"
+@using TioRACLab.Terrario.Shared
+@inject HttpClient Http
+@inject NavigationManager _navigationManager
+
+<PageTitle>Status do Terrário</PageTitle>
+<h1>Status do Terrário</h1>
+
+@if (statusTerrario == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data Hora</th>
+                <th>Status</th>
+                <th>Temp. (C)</th>
+                <th>Umidade</th>
+                <th>Nivel Lago</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (StatusTerrario status in statusTerrario)
+            {
+                <tr @onclick="() => { IrParaDetalhe(status.Timestamp); }">
+                    <td>@status.Timestamp</td>
+                    <td>@status.Status</td>
+                    <td>@status.Temperatura</td>
+                    <td>@status.Umidade</td>
+                    <td>@status.NivelLago</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+    @code {
+    private StatusTerrario[]? statusTerrario;
+
+    private void IrParaDetalhe(int timestamp)
+    {
+        _navigationManager.NavigateTo($"/terrario/detalhe/{timestamp}");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        statusTerrario = await Http.GetFromJsonAsync<StatusTerrario[]>("v1/Status");
+    }
+}

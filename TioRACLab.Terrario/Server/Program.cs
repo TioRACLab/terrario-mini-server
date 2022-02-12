@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using TioRACLab.Terrario.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+//var connection = Configuration["ConexaoSqlite:SqliteConnectionString"]
+
+builder.Services.AddDbContext<ContextoTerrario>(o => o.UseSqlite("Data Source=Status.db"));
 
 var app = builder.Build();
 

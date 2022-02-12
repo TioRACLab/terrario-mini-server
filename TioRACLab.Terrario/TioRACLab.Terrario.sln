@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TioRACLab.Terrario.Server", "Server\TioRACLab.Terrario.Server.csproj", "{1701F891-1199-4BD0-9060-3A76D1154DA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TioRACLab.Terrario.Server", "Server\TioRACLab.Terrario.Server.csproj", "{1701F891-1199-4BD0-9060-3A76D1154DA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TioRACLab.Terrario.Client", "Client\TioRACLab.Terrario.Client.csproj", "{B9F7C9FF-54CE-4995-80AC-BF7A35B2CF69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TioRACLab.Terrario.Client", "Client\TioRACLab.Terrario.Client.csproj", "{B9F7C9FF-54CE-4995-80AC-BF7A35B2CF69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TioRACLab.Terrario.Shared", "Shared\TioRACLab.Terrario.Shared.csproj", "{DDF4DB3C-0ED3-4FA3-9BDF-4622F54AB6B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TioRACLab.Terrario.Shared", "Shared\TioRACLab.Terrario.Shared.csproj", "{DDF4DB3C-0ED3-4FA3-9BDF-4622F54AB6B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
